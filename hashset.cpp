@@ -46,7 +46,7 @@ HashSet *CreateHashSet(int size)
     return newTable;
 }
 
-unsigned int Hash(HashSet *hashTable, const char *str)
+unsigned int Hash(HashSet *hashSet, const char *str)
 {
     unsigned int hashVal = 0;
 
@@ -54,15 +54,15 @@ unsigned int Hash(HashSet *hashTable, const char *str)
     {
         hashVal = *str + (hashVal << 5) - hashVal;
     }
-    return hashVal % hashTable->size;
+    return hashVal % hashSet->size;
 }
 
-Node *Lookup(HashSet *hashTable, const char *str)
+Node *Lookup(HashSet *hashSet, const char *str)
 {
     Node *list;
-    unsigned int hashVal = Hash(hashTable, str);
+    unsigned int hashVal = Hash(hashSet, str);
 
-    for (list = hashTable->table[hashVal]; list != nullptr; list = list->next)
+    for (list = hashSet->table[hashVal]; list != nullptr; list = list->next)
     {
         if (list->str && strcmp(str, list->str) == 0)
             return list;
@@ -70,18 +70,18 @@ Node *Lookup(HashSet *hashTable, const char *str)
     return nullptr;
 }
 
-int AddString(HashSet *hashTable, const char *str)
+int AddString(HashSet *hashSet, const char *str)
 {
     Node *currentList;
-    unsigned int hashVal = Hash(hashTable, str);
+    unsigned int hashVal = Hash(hashSet, str);
 
-    if (hashTable->table[hashVal] == nullptr)
+    if (hashSet->table[hashVal] == nullptr)
     {
-        hashTable->table[hashVal] = new Node;
+        hashSet->table[hashVal] = new Node;
     }
 
     // Does item already exist?
-    currentList = Lookup(hashTable, str);
+    currentList = Lookup(hashSet, str);
 
     // Item exists, dont insert again.
     if (currentList != nullptr)
@@ -90,23 +90,23 @@ int AddString(HashSet *hashTable, const char *str)
     // Insert into list;
     Node *newList = new Node;
     newList->str = strdup(str);
-    newList->next = hashTable->table[hashVal];
-    hashTable->table[hashVal] = newList;
+    newList->next = hashSet->table[hashVal];
+    hashSet->table[hashVal] = newList;
 
     return 1;
 }
 
-void FreeTable(HashSet *hashTable)
+void FreeTable(HashSet *hashSet)
 {
     int i;
     Node *list, *temp;
 
-    if (hashTable == nullptr)
+    if (hashSet == nullptr)
         return;
 
-    for (i = 0; i < hashTable->size; i++)
+    for (i = 0; i < hashSet->size; i++)
     {
-        list = hashTable->table[i];
+        list = hashSet->table[i];
         while (list != nullptr)
         {
             temp = list;
@@ -115,21 +115,21 @@ void FreeTable(HashSet *hashTable)
         }
     }
 
-    free(hashTable->table);
-    free(hashTable);
+    free(hashSet->table);
+    free(hashSet);
 }
 
 int main()
 {
-    HashSet *hashTable = CreateHashSet(5);
-    assert(hashTable != nullptr);
+    HashSet *hashSet = CreateHashSet(5);
+    assert(hashSet != nullptr);
 
     const std::string str = "Jupiter";
-    AddString(hashTable, str.c_str());
-    AddString(hashTable, "Venus");
-    AddString(hashTable, "Mercury");
+    AddString(hashSet, str.c_str());
+    AddString(hashSet, "Venus");
+    AddString(hashSet, "Mercury");
 
-    Node *n = Lookup(hashTable, "Earth");
+    Node *n = Lookup(hashSet, "Earth");
     if (n)
     {
         std::cout << "Name found is " << n->str;
@@ -139,7 +139,7 @@ int main()
         std::cout << "Name not found \n";
     }
 
-    FreeTable(hashTable);
+    FreeTable(hashSet);
 
     return 0;
 }

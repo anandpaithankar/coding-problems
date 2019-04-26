@@ -5,9 +5,10 @@
 ## Understanding the problem (Time: < 5 minutes)
 
 * Throughly understand the problem like what is it asking you to do.
-* Draw pictures, schematics or doodle if that helps you to vizualize.
+* Draw pictures, schematics or doodle if that helps you to visualize.
   * Sometimes representing inputs in different manner helps formulate the pattern. (e.g. input = "a1b2c3" --> "abbccc")
 * Know the input and its type (e.g. string, int, array etc.).
+* Ask for what is the range of the input. What are the min and max values possible for this input.
 * Know the expected output and its type (e.g. bool, int, array etc).
 * Write given inputs and outputs on board in the form of pseudo-method. This will avoid solving wrong problem.
 	e.g.

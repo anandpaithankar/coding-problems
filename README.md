@@ -1,2 +1,3 @@
-# coding_problems
-Solution to common coding problems
+# Coding Problems
+
+Solution to frequently asked coding problems.

@@ -148,5 +148,11 @@ int main()
     std::string pattern = "aa";
 
     auto result = isMatch2(str, pattern);
-    std::cout << "Result " << result;
+    std::cout << "1. Result " << result;
+    
+     str = "mississippi";
+     pattern = "m??*ss*?i*pi";
+    result = isMatch2(str, pattern);
+    std::cout << "2. Result " << result;
+    
 }

@@ -1,6 +1,9 @@
 package tree
 
-import "fmt"
+import (
+	"container/list"
+	"fmt"
+)
 
 type node struct {
 	v     int
@@ -76,6 +79,28 @@ func (t *BinaryTree) InOrder() {
 	fmt.Printf("In order: ")
 	inOrder(t.root)
 	fmt.Println()
+}
+
+// LevelOrder ... BFS traversal
+func (t *BinaryTree) LevelOrder() {
+	fmt.Printf("Level Order: ")
+	current := t.root
+	q := list.New()
+	q.PushBack(current)
+
+	for q.Len() != 0 {
+		e := q.Front()
+		q.Remove(e)
+		n := e.Value.(*node)
+		fmt.Printf(" %d ", n.v)
+		if n.left != nil {
+			q.PushBack(n.left)
+		}
+
+		if n.right != nil {
+			q.PushBack(n.right)
+		}
+	}
 }
 
 func preOrder(n *node) {

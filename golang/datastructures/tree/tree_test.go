@@ -1,6 +1,8 @@
 package tree
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestTree(t *testing.T) {
 	tree := New()
@@ -12,4 +14,5 @@ func TestTree(t *testing.T) {
 	tree.PreOrder()
 	tree.PostOrder()
 	tree.InOrder()
+	tree.LevelOrder()
 }

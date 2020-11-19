@@ -1,5 +1,7 @@
 package linkedlist
 
+import "fmt"
+
 // node ... Linked List Node
 type node struct {
 	v    int
@@ -81,4 +83,55 @@ func (l *LinkedList) Iterate() []int {
 		values = append(values, c.v)
 	}
 	return values
+}
+
+// PrintList ... Prints the list
+func PrintList(l *LinkedList) {
+	l.panicOnEmpty()
+	c := l.head
+	for ; c != nil; c = c.next {
+		fmt.Printf(" %d -> ", c.v)
+	}
+}
+
+// Search ... Searches for a given value
+// in the list.
+func (l *LinkedList) Search(v int) bool {
+	if l.head == nil {
+		return false
+	}
+
+	for current := l.head; current.next != nil; current = current.next {
+		if current.v == v {
+			return true
+		}
+	}
+	return false
+}
+
+// Reverse ... Returns a reversed linked list.
+func (l *LinkedList) Reverse() *LinkedList {
+	prev, current := (*node)(nil), l.head
+	for current != nil {
+		next := current.next
+		current.next = prev
+		prev = current
+		current = next
+	}
+	return &LinkedList{head: prev}
+}
+
+// Mid .. Returns a middle element of a list
+func (l *LinkedList) Mid() int {
+	l.panicOnEmpty()
+	if l.head.next == nil {
+		return l.head.v
+	}
+
+	current, jump := l.head, l.head.next
+	for jump != nil && jump.next != nil {
+		jump = jump.next.next
+		current = current.next
+	}
+	return current.v
 }

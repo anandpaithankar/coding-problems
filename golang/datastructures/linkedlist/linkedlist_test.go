@@ -1,6 +1,8 @@
 package linkedlist
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestLinkedList(t *testing.T) {
 	l := New()
@@ -28,6 +30,14 @@ func TestLinkedList(t *testing.T) {
 		if values[i] != expected[i] {
 			t.Errorf("Unexpected value received.")
 		}
+	}
+
+	if l.Search(1) != true {
+		t.Errorf("Should have found the value.")
+	}
+
+	if l.Search(8) != false {
+		t.Errorf("Should not have found the value.")
 	}
 }
 
@@ -73,4 +83,28 @@ func TestEmptyListOperations(t *testing.T) {
 	l.Front()
 	l.PopBack()
 	l.PopFront()
+}
+
+func TestReverseList(t *testing.T) {
+	l := New()
+	l.PushBack(1)
+	l.PushBack(2)
+	l.PushBack(3)
+	r := l.Reverse()
+
+	PrintList(r)
+}
+
+func TestMid(t *testing.T) {
+	l := New()
+	l.PushBack(1)
+	l.PushBack(2)
+	l.PushBack(3)
+	l.PushBack(4)
+	l.PushBack(5)
+	l.PushBack(6)
+
+	if l.Mid() != 4 {
+		t.Errorf("Invalid middle element value")
+	}
 }

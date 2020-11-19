@@ -20,6 +20,7 @@ func main() {
 
 	planets := map[string]int{"venus": 1, "mercury": 2, "earth": 3, "mars": 4}
 	fmt.Println(planets)
+	fmt.Println("Size: ", len(planets))
 
 	// iterating over a map
 	for k, v := range planets {
